@@ -17,7 +17,7 @@ const Hero = () => {
             </div>
             </div>
             <div className='col-span-5 place-self-center mt-4 lg:mt-0'>
-                <Image
+                <img
                     src="/images/landingpage.png"
                     alt='stock image'
                     width={400}

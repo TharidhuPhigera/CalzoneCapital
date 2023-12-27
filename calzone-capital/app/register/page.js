@@ -51,7 +51,7 @@ const Register = () => {
         }
     }
   return (
-    <main className="flex min-h-screen flex-col bg-[#11212]">
+    <main className="flex min-h-screen flex-col bg-[#121212]">
         <Navbar/>
         <div className='flex min-h-screen flex-col items-center justify-between'>
             <div className='bg-white p-8 rounded shadow-md w-96'>
@@ -80,6 +80,7 @@ const Register = () => {
                 </Link>
             </div>
         </div>
+
     </main>
   )
 }

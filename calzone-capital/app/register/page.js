@@ -52,9 +52,9 @@ const Register = () => {
     }
   return (
     <main className="flex min-h-screen flex-col bg-[#121212]">
-        <Navbar/>
-        <div className='flex min-h-screen flex-col items-center justify-between'>
-            <div className='bg-white p-8 rounded shadow-md w-96'>
+        <Navbar style={{ height: 'auto', marginBottom: '20px' }} />
+        <div className='flex flex-col items-center'>
+            <div className='bg-white p-8 rounded shadow-md w-96 mt-8'>
                 <h1 className='text-black text-4xl text-center font-thin mb-8'>Register</h1>
                 <form onSubmit={handleSubmit}>
                     <input 

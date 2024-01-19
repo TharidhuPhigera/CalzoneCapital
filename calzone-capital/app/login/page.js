@@ -58,13 +58,13 @@ const handleSubmit = async (e) => {
     }
   }
 
- return (
-    <main className="flex min-h-screen flex-col bg-[#121212]">
-        <Navbar/>
-        <div className='flex min-h-screen flex-col items-center justify-between'>
-            <div className='bg-white p-8 rounded shadow-md w-96'>
-                <h1 className='text-black text-4xl text-center font-thin mb-8'>Login</h1>
-                <form onSubmit={handleSubmit}>
+  return (
+    <main className="flex flex-col min-h-screen bg-[#121212]">
+      <Navbar style={{ height: 'auto', marginBottom: '20px' }} />
+      <div className='flex flex-col items-center'>
+        <div className='bg-white p-8 rounded shadow-md w-96 mt-8'>
+          <h1 className='text-black text-4xl text-center font-thin mb-8'>Login</h1>
+          <form onSubmit={handleSubmit}>
                     <input 
                         type="text" 
                         name='email'
@@ -85,19 +85,17 @@ const handleSubmit = async (e) => {
                         Sign In
                     </button>
                     {/* <p className='text-red-600 text-[16px] mb-4'>{error && error}</p> */}
-                </form>
-                <div className="text-center text-gray-500 mt-4">- OR -</div>
-                {/* <button onClick={() => signIn('google')} className="block text-center text-[#2D9B9E] hover:underline mt-2" href="/register">
-                    Sign In with Google
-                </button> */}
-                <Link className="block text-center text-[#2D9B9E] hover:underline mt-2" href="/register">
-                    Register Here
-                </Link>
-            </div>
+          </form>
+          <div className="text-center text-gray-500 mt-4">- OR -</div>
+          <Link className="block text-center text-[#2D9B9E] hover:underline mt-2" href="/register">
+            Register Here
+          </Link>
         </div>
-
+      </div>
     </main>
- )
-}
+  );
+};
 
-export default Login 
+export default Login;
+
+

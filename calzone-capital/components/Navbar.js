@@ -30,7 +30,6 @@ const Navbar = () => {
                     </>
                   ): (
                     <>
-                    {session.user?.email}
                     <li>
                       <button onClick={() => {
                         signOut()

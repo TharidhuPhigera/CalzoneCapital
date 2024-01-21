@@ -11,10 +11,10 @@ const Login = () => {
  const session = useSession();
 
  useEffect(() => {
-    if(session?.status === "authenticated"){
-      router.replace("/home")
-    }
- }, [session, router])
+  if (session?.status === "authenticated") {
+    router.replace("/home");
+  }
+}, [session]);
 
 
  const isValidEmail = async (email) => {
@@ -46,11 +46,11 @@ const handleSubmit = async (e) => {
         password,
       });
   
-      if (res?.error) {
-        setError(res.error)
+      if (res?.ok) {
+        setError("");
+        router.replace("/home");
       } else {
-        setError("")
-        router.replace("/home")
+        setError("Invalid credentials. Please try again.");
       }
     } catch (error) {
       console.error("Sign-in error:", error);
@@ -84,7 +84,7 @@ const handleSubmit = async (e) => {
                         className='w-full px-6 py-3 rounded-full bg-[#38bfc3] text-white hover:bg-[#2D9B9E]'>
                         Sign In
                     </button>
-                    {/* <p className='text-red-600 text-[16px] mb-4'>{error && error}</p> */}
+                    <p className='text-red-600 text-[16px] mb-4'>{error && error}</p>
           </form>
           <div className="text-center text-gray-500 mt-4">- OR -</div>
           <Link className="block text-center text-[#2D9B9E] hover:underline mt-2" href="/register">

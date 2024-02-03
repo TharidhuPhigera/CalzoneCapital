@@ -1,8 +1,9 @@
 "use client"
 import Link from 'next/link';
-import { FaTachometerAlt, FaBriefcase, FaSearch, FaCogs, FaSignOutAlt } from 'react-icons/fa';
+import { FaTachometerAlt, FaBriefcase, FaSearch, FaCogs, FaSignOutAlt, FaUser, FaWallet } from 'react-icons/fa';
 import { signOut, useSession } from "next-auth/react"
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 
 const FixedWidthEmail = ({ email }) => {
@@ -34,16 +35,30 @@ const FixedWidthEmail = ({ email }) => {
 };
 
 export default function Sidebar({}) {
+
+  const {data: session} = useSession();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    await signOut({ redirect: false });
+    router.push('/'); 
+  };
   const pages = [
     { id: 1, icon: <FaTachometerAlt />, text: "Dashboard", href: "/home"},
-    { id: 2, icon: <FaBriefcase />, text: "Portofolio", href: "/portofolio"},
-    { id: 3, icon: <FaSearch />, text: "Discover", href: "/market"},
-    { id: 4, icon: <FaCogs />, text: "Settings", href: "/settings"},
+    { id: 2, icon: <FaSearch />, text: "Discover", href: "/market"},
+    { id: 3, icon: <FaBriefcase />, text: "Portofolio", href: "/portofolio"},
+    { id: 4, icon: <FaWallet />, text: "Wallet", href: "/wallet"},
+    { id: 5, icon: <FaUser />, text: "Profile", href: "/profile"}
   ];
-  const {data: session} = useSession();
+
+  const bottomPages= [
+    { id: 5, icon: <FaCogs />, text: "Settings", href: "/settings"},
+    { id: 6, icon: <FaSignOutAlt />, text: "Logout", onClick: handleSignOut },
+  ]
+
   return (
     <aside className="h-screen w-1/5">
-      <nav className="h-full flex flex-col bg-[#38bfc3] shadow-sm relative">
+      <nav className="h-full flex flex-col bg-[#121212] shadow-sm relative">
         <div className="p-4 pb-2 flex flex-col items-center">
             <Link href="/">
             <img
@@ -65,21 +80,17 @@ export default function Sidebar({}) {
             />
           ))}
         </ul>
-        <div className="flex items-center ml-4 mb-4">
-            <Link href="/profile">
-                <img src="/images/profile.png" alt="profile image" className="w-7 h-7 rounded-md" />
-            </Link>
-            <div className="leading-4 ml-2">
-                <Link href="/profile">
-                    <FixedWidthEmail email={session?.user?.email || ''} />
-                </Link>
-            </div>
-            <div className="ml-auto pt-1 mr-4">
-                <button onClick={() => signOut()} className="text-black">
-                <FaSignOutAlt />
-                </button>
-            </div>
-        </div>
+        <ul className="flex-col flex-initial items-center mb-4 px-3">
+          {bottomPages.map((page) => (
+            <BottomItem
+              key={page.id}
+              icon={page.icon}
+              text={page.text}
+              href={page.href}
+              onClick={page.onClick}
+            />
+          ))}
+        </ul>
       </nav>
     </aside>
   );
@@ -89,7 +100,7 @@ export function SidebarItem({ icon, text, href }) {
   return (
     <Link href={href}>
       <div className={`relative flex items-center pl-8 py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
-        'text-white hover:bg-white hover:text-black'
+        'text-white hover:bg-[#38bfc3] hover:text-black'
       }`}>
         {icon}
         <span className='overflow-hidden transition-all w-52 ml-3'>
@@ -98,4 +109,35 @@ export function SidebarItem({ icon, text, href }) {
       </div>
     </Link>
   );
+}
+
+export function BottomItem({ icon, text, href, onClick }) {
+  if (href) {
+    return (
+      <Link href={href}>
+        <div className={`relative flex items-center pl-8 py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
+          'text-white hover:bg-[#38bfc3] hover:text-black'
+        }`}>
+          {icon}
+          <span className='overflow-hidden transition-all w-52 ml-3'>
+            {text}
+          </span>
+        </div>
+      </Link>
+    );
+  } else {
+    return (
+      <div
+        onClick={onClick}
+        className={`relative flex items-center pl-8 py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
+          'text-white hover:bg-[#38bfc3] hover:text-black'
+        }`}
+      >
+        {icon}
+        <span className='overflow-hidden transition-all w-52 ml-3'>
+          {text}
+        </span>
+      </div>
+    );
+  }
 }

@@ -6,19 +6,20 @@ import { useSession } from 'next-auth/react';
 
 const Profile = () => {
   const { data: session } = useSession();
+  console.log("Session:", session);
 
-  const { email, firstName, lastName } = session.user || {};
+  const { email, firstName, lastName } = session?.user || {};
 
   return (
-    <main className="flex min-h-screen bg-[#121212]">
+    <main className="flex min-h-screen bg-[#ffffff]">
       <Sidebar />
 
-      <section className="w-4/5 pl-10 pr-4 pt-4 text-left overflow-y-auto p-8 bg-gray">
+      <section className="w-4/5 pl-10 pr-4 pt-4 text-left overflow-y-auto bg-gray">
         <div className="flex justify-between items-start">
-          <h1 className="text-white mb-10 text-4xl pt-14 pl-5">Profile</h1>
+          <h1 className=" mb-10 text-4xl pt-14 pl-5">Profile</h1>
         </div>
 
-        <div className="container mx-auto bg-white p-8 rounded-md grid grid-cols-3 gap-8">
+        <div className="container mx-auto pl-4 rounded-md grid grid-cols-3 gap-8">
           {/* First Column */}
           <div className="flex flex-col space-y-4">
             <div className="mb-4">
@@ -61,14 +62,13 @@ const Profile = () => {
                 disabled
               />
             </div>
-            {/* Add additional fields as needed */}
           </div>
 
           {/* Third Column */}
           <div className="flex flex-col items-center justify-end">
             <div className="relative mb-4">
               <img
-                src="/images/profile.png" // Add the correct image source
+                src="/images/profile.png" 
                 alt="profile image"
                 className="w-32 h-32 rounded-full"
               />

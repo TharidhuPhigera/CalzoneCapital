@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, models } from "mongoose";
 
-const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
@@ -16,23 +15,23 @@ const userSchema = new Schema(
     },
     firstName: {
       type: String,
-      default: "FirstName",
+      required: true,
     },
     lastName: {
       type: String,
-      default: "LastName",
+      required: true,
     },
-    address: {
-      streetAddress: String,
-      city: String,
-      stateOrRegion: String,
-      postalCode: String,
-      country: String,
+    dob: {
+      type: Date,
+      required: true,
     },
-    phoneNumber: String,
-    taxIdCode: String,
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
 
-export default mongoose.models.User || mongoose.model("User", userSchema);
+const User = models.User || mongoose.model("User", userSchema);
+export default User;

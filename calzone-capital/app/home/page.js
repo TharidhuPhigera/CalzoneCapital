@@ -14,7 +14,7 @@ const Home = async () => {
             <Sidebar />
             <section className='w-4/5 pl-10 pr-4 pt-4 text-right overflow-y-auto p-8 bg-gray'>
                 <div className='flex justify-between items-start'>
-                    <h1 className='text-black mb-10 text-4xl pt-14 pl-5'>Trending</h1>
+                    <h1 className='text-black mb-10 text-4xl pt-14'>Trending</h1>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'>
                     {/* Your additional content goes here */}

@@ -49,3 +49,48 @@ export const fetchTwelveData = async (stockSymbol) => {
 
   return await response.json();
 };
+
+export const getMarketNews = async (category = 'general', limit = 5) => {
+  const url = `${basePath}/news?category=${category}&token=cm4748hr01qu6hdae6hgcm4748hr01qu6hdae6i0`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      const message = `An error has occurred: ${response.status}`;
+      throw new Error(message);
+    }
+
+    const data = await response.json();
+    const limitedData = data.slice(0, limit);
+    return limitedData;
+  } catch (error) {
+    throw new Error(`Error fetching market news: ${error.message}`);
+  }
+};
+
+export const fetchCompanyNews = async (stockSymbol, limit = 5) => {
+  try {
+    const stockDetails = await fetchStockDetails(stockSymbol);
+    const companyName = stockDetails.name;
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split('T')[0];
+    const fromDate = new Date(currentDate);
+    fromDate.setDate(currentDate.getDate() - 7);
+    const formattedFromDate = fromDate.toISOString().split('T')[0];
+    const url = `${basePath}/company-news?symbol=${companyName}&from=${formattedFromDate}&to=${formattedDate}&token=cm4748hr01qu6hdae6hgcm4748hr01qu6hdae6i0`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      const message = `An error has occurred: ${response.status}`;
+      throw new Error(message);
+    }
+
+    const data = await response.json();
+    const limitedData = data.slice(0, limit);
+    
+    return limitedData;
+  } catch (error) {
+    throw new Error(`Error fetching company news: ${error.message}`);
+  }
+};

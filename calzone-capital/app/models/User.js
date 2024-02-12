@@ -29,6 +29,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    stockWishlist: {
+      type: [String],
+      default: [],
+    }
   },
   { timestamps: true }
 );

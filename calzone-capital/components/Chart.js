@@ -15,7 +15,7 @@ import StockContext from '/context/StockContext';
 import { fetchTwelveData } from "../app/api/stock/stock-api";
 
 const Chart = () => {
-  const [filter, setFilter] = useState("1W");
+  const [filter, setFilter] = useState("1D");
   const [data, setData] = useState([]);
   const { stockSymbol } = useContext(StockContext);
 
@@ -42,7 +42,8 @@ const Chart = () => {
 
     const updateChartData = async () => {
       try {
-        const result = await fetchTwelveData(stockSymbol);
+        const { startDate, endDate } = getDateRange();
+        const result = await fetchTwelveData(stockSymbol, startDate, endDate);
         console.log("API Response:", result);
         const formattedData = formatData(result);
         const reversedData = formattedData.reverse();
@@ -53,7 +54,7 @@ const Chart = () => {
         console.error(error);
       }
     };
-
+    
     updateChartData();
   }, [stockSymbol, filter]);
 
@@ -112,6 +113,7 @@ const Chart = () => {
           />
           <XAxis
             dataKey="date"
+            domain={['auto', 'auto']}  
             tickFormatter={(timestamp) => {
               const date = new Date(timestamp);
               const formattedTime = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });

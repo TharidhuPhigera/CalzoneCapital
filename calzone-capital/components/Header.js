@@ -5,8 +5,8 @@ const Header = ({ name }) => {
   return (
     <>
       <div>
-        <h1 className="pt-14 text-4xl">{name}</h1>
         <Search />
+        <h1 className="text-4xl">{name}</h1>
       </div>
     </>
   );

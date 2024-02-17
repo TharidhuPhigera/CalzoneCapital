@@ -1,27 +1,29 @@
-import React from "react";
-import { getServerSession } from "next-auth";
-import { redirect, useClient } from "next/navigation";
+"use client";
+import React, { useState, useEffect } from "react";
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import Sidebar from '/components/Sidebar';
+import TrendingStocks from '/components/TrendingStocks';
+import News from '/components/News';
 
-const Home = async () => {
-    const session = await getServerSession();
-    if (!session) {
-        redirect("/");
-    }
+const Home = () => {
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
-    return (
-        <main className="flex min-h-screen bg-[#ffffff]">
-            <Sidebar />
-            <section className='w-4/5 pl-10 pr-4 pt-4 text-right overflow-y-auto p-8 bg-gray'>
-                <div className='flex justify-between items-start'>
-                    <h1 className='text-black mb-10 text-4xl pt-14 pl-5'>Trending</h1>
-                </div>
-                <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'>
-                    {/* Your additional content goes here */}
-                </div>
-            </section>
-        </main>
-    );
+  if (!session) {
+    router.push("/");
+    return null; 
+  }
+
+  return (
+    <main className="flex min-h-screen bg-[#ffffff]">
+      <Sidebar />
+      <section className='w-3/4 pl-12 pr-4 pt-4 overflow-y-auto bg-gray'>
+        <News />
+        {/* <TrendingStocks /> */}
+      </section>
+    </main>
+  );
 };
 
-export default Home
+export default Home;

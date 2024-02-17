@@ -1,25 +1,28 @@
+"use client"
 import React from "react";
-import { getServerSession } from "next-auth";
-import { redirect, useClient } from "next/navigation";
+import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { redirect } from "next/navigation";
 import Sidebar from '/components/Sidebar';
+import Dashboard from '/components/Dashboard';
+import Header from '/components/Header';
 
-const Market = async () => {
-    const session = await getServerSession();
+import StockContext from '/context/StockContext'
+
+const Market = () => {
+    const { data: session } = useSession();
+    console.log("Session:", session);
     if (!session) {
         redirect("/");
     }
+    const [stockSymbol, setStockSymbol] = useState("MSFT");
 
     return (
         <main className="flex min-h-screen bg-[#ffffff]">
             <Sidebar />
-            <section className='w-4/5 pl-10 pr-4 pt-4 text-right overflow-y-auto p-8 bg-gray'>
-                <div className='flex justify-between items-start'>
-                    <h1 className='text-black mb-10 text-4xl pt-14 pl-5'>Market</h1>
-                </div>
-                <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'>
-                    {/* Your additional content goes here */}
-                </div>
-            </section>
+                <StockContext.Provider value={{ stockSymbol, setStockSymbol }}>
+                    <Dashboard/>
+                </StockContext.Provider>
         </main>
     );
 };

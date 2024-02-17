@@ -29,6 +29,8 @@ const TrendingStocks = () => {
   }, [trendingStocks]);
 
   return (
+    <div>
+    <h2 className='text-black text-2xl mb-2 pt-14'>Trending</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 overflow-hidden bg-[#F5F7F8] rounded-md shadow-md">
       {trendingData.map(({ symbol, quote, details }) => (
         <div key={symbol} className="news-card">
@@ -50,6 +52,7 @@ const TrendingStocks = () => {
           </div>
         </div>
       ))}
+    </div>
     </div>
   );
 };

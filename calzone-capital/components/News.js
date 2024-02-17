@@ -20,7 +20,7 @@ const News = () => {
 
   return (
     <div>
-        <h2 className="text-xl mt-2 mb-2">Market News</h2>
+        <h2 className="text-3xl mt-2 mb-5 pt-14">Market News</h2>
         <div className="bg-[#F5F7F8] rounded-md shadow-md p-4 mb-4 w-2/5">
             {news.map((article) => (
             <div key={article.id} className="flex mb-3">

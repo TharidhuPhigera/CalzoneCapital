@@ -26,8 +26,9 @@ export const authOptions = {
           if (!passwordsMatch) {
             return null;
           }
-
-          return user
+          console.log('Session User:', user);
+        
+          return user;
         } catch (error) {
           console.error("Authorization error:", error);
           throw new Error("An error occurred during authentication");
@@ -41,7 +42,7 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/login",
-  },
+  }, 
 };
 
 const handler = NextAuth(authOptions);

@@ -69,16 +69,14 @@ export const getMarketNews = async (category = 'general', limit = 5) => {
   }
 };
 
-export const fetchCompanyNews = async (stockSymbol, limit = 5) => {
+export const fetchCompanyNews = async (stockSymbol, limit = 4) => {
   try {
-    const stockDetails = await fetchStockDetails(stockSymbol);
-    const companyName = stockDetails.name;
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString().split('T')[0];
     const fromDate = new Date(currentDate);
     fromDate.setDate(currentDate.getDate() - 7);
     const formattedFromDate = fromDate.toISOString().split('T')[0];
-    const url = `${basePath}/company-news?symbol=${companyName}&from=${formattedFromDate}&to=${formattedDate}&token=cm4748hr01qu6hdae6hgcm4748hr01qu6hdae6i0`;
+    const url = `${basePath}/company-news?symbol=${stockSymbol}&from=${formattedFromDate}&to=${formattedDate}&token=cm4748hr01qu6hdae6hgcm4748hr01qu6hdae6i0`;
     const response = await fetch(url);
 
     if (!response.ok) {

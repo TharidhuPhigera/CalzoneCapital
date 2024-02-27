@@ -12,21 +12,19 @@ const Details = ({ details }) => {
   };
 
   return (
-      <ul
-        className={`w-full flex justify-between`}
-      >
-        {Object.keys(detailsList).map((item) => {
-          return (
-            <li key={item} className="flex justify-between items-center py-1">
-              {/* <span className="text-sm">{detailsList[item]}</span> */}
-              <span className="text-xs mr-5">
-                {details[item]}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
-  );
+    <ul className={`flex`}>
+    {Object.keys(detailsList).map((item, index, array) => {
+      return (
+        <li key={item} className="flex justify-between items-center">
+          <span className="text-xs mr-2">
+            {details[item]}
+          </span>
+          {index !== array.length - 1 && <span className="text-xs mr-2">|</span>}
+        </li>
+      );
+    })}
+  </ul>
+  )  
 };
 
 export default Details;

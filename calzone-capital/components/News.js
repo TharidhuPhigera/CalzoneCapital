@@ -19,9 +19,9 @@ const News = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-full">
         <h2 className="text-2xl mt-2 mb-5 pt-2">Market News</h2>
-        <div className="bg-[#F5F7F8] rounded-md shadow-md p-4 mb-4 w-2/5">
+        <div className="bg-[#F5F7F8] rounded-md shadow-md p-4 mb-4 w-4/5">
             {news.map((article) => (
             <div key={article.id} className="flex mb-3">
                 <img

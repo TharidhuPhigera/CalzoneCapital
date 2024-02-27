@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Sidebar from '/components/Sidebar';
 import News from '/components/News';
+import Watchlist from '/components/Watchlist';
 import TwelveDataWebSocket from '../utils/websocket';
 
 const Home = () => {
@@ -17,7 +18,6 @@ const Home = () => {
   }
 
   const handleWebSocketMessage = (data) => {
-    console.log('WebSocket Message in Home:', data);
     if (data.event === 'price') {
       setPriceData((prevData) => {
         const updatedData = [...prevData];
@@ -58,7 +58,10 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <News />
+        <div className="flex">
+          <News className="w-2/3" />
+          <Watchlist className="w-1/3" />
+        </div>
       </section>
     </main>
   );

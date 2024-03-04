@@ -33,17 +33,17 @@ const Watchlist = () => {
         {trendingStocks.map((stock, index) => (
             <li className="flex justify-between items-center pt-3 pb-3" key={index}>
             <span className='text-[#38bfc3] text-lg md:text-xl xl:text-2xl 2xl:text-3xl'>{stock.symbol}</span> 
-            <div className="flex">
-                <span className="text-sm md:text-lg xl:text-xl 2xl:text-2xl mr-2">Buy</span>
-                <span className='text-sm md:text-lg xl:text-xl 2xl:text-2xl text-lime-500'>{stock.buy}</span>
+            <div className="flex bg-lime-200 rounded-md shadow-md p-2 font-light border border-lime-500 text-lime-500">
+                <span className="mr-2">Buy</span>
+                {stock.buy}
             </div>
-            <div className="flex">
-                <span className="text-sm md:text-lg xl:text-xl 2xl:text-2xl mr-2">Hold</span>
-                <span className='text-sm md:text-lg xl:text-xl 2xl:text-2xl text-yellow-500'>{stock.hold}</span>
+            <div className="flex bg-yellow-200 rounded-md shadow-md p-2 font-light border border-yellow-500 text-yellow-500">
+                <span className="mr-2">Hold</span>
+                {stock.hold}
             </div>
-            <div className="flex">
-                <span className="text-sm md:text-lg xl:text-xl 2xl:text-2xl mr-2">Sell</span>
-                <span className='text-sm md:text-lg xl:text-xl 2xl:text-2xl text-red-500'>{stock.sell}</span>
+            <div className="flex bg-red-200 rounded-md shadow-md p-2 font-light border border-red-500 text-red-500">
+                <span className="mr-2">Sell</span>
+                {stock.sell}
             </div>
             </li>
         ))}
@@ -54,3 +54,4 @@ const Watchlist = () => {
 };
 
 export default Watchlist;
+

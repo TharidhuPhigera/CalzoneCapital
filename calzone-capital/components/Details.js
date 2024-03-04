@@ -1,15 +1,9 @@
-import React, { useContext } from "react";
-import Card from "./Card";
-
+import React from "react";
 
 const Details = ({ details }) => {
   const detailsList = {
-    name: "Name",
-    country: "Country",
-    currency: "Currency",
     exchange: "Exchange",
-    ipo: "IPO Date",
-    marketCapitalization: "Market Capitalization",
+    currency: "Currency",
     finnhubIndustry: "Industry",
   };
 
@@ -18,25 +12,19 @@ const Details = ({ details }) => {
   };
 
   return (
-    <Card>
-      <ul
-        className={`w-full h-full flex flex-col justify-between divide-y-1`}
-      >
-        {Object.keys(detailsList).map((item) => {
-          return (
-            <li key={item} className="flex-1 flex justify-between items-center">
-              <span className="text-sm">{detailsList[item]}</span>
-              <span className="text-xs text-right">
-                {item === "marketCapitalization"
-                  ? `${convertMillionToBillion(details[item])}B`
-                  : details[item]}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
-    </Card>
-  );
+    <ul className={`flex`}>
+    {Object.keys(detailsList).map((item, index, array) => {
+      return (
+        <li key={item} className="flex justify-between items-center">
+          <span className="text-xs mr-2">
+            {details[item]}
+          </span>
+          {index !== array.length - 1 && <span className="text-xs mr-2">|</span>}
+        </li>
+      );
+    })}
+  </ul>
+  )  
 };
 
 export default Details;

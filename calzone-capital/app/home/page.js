@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Sidebar from '/components/Sidebar';
 import News from '/components/News';
+import Watchlist from '/components/Watchlist';
 import TwelveDataWebSocket from '../utils/websocket';
 
 const Home = () => {
@@ -17,7 +18,6 @@ const Home = () => {
   }
 
   const handleWebSocketMessage = (data) => {
-    console.log('WebSocket Message in Home:', data);
     if (data.event === 'price') {
       setPriceData((prevData) => {
         const updatedData = [...prevData];
@@ -38,9 +38,9 @@ const Home = () => {
     <main className="flex min-h-screen bg-[#ffffff]">
       <Sidebar />
       <section className='w-3/4 pl-12 pr-4 overflow-y-auto bg-gray'>
-        <TwelveDataWebSocket symbols={['AAPL', 'RY', 'RY:TSX', 'EUR/USD', 'BTC/USD']} onMessage={handleWebSocketMessage} />
+        <TwelveDataWebSocket symbols={['AAPL', 'AMZN', 'MSFT', 'EUR/USD', 'BTC/EUR']} onMessage={handleWebSocketMessage} />
         <div>
-          <h2 className='text-black text-2xl mb-2 pt-14'>Real-Time Prices</h2>
+          <h2 className='text-2xl mb-2 pt-14 text-[#cb4444]'>Live Price</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 overflow-hidden bg-[#F5F7F8] rounded-md shadow-md">
             {priceData.map((price, index) => (
               <div key={index} className="news-card">
@@ -58,7 +58,10 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <News />
+        <div className="flex">
+          <News className="w-2/3" />
+          <Watchlist className="w-1/3" />
+        </div>
       </section>
     </main>
   );

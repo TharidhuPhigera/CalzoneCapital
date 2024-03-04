@@ -9,115 +9,89 @@ import {
   Tooltip,
   AreaChart,
 } from "recharts";
-import { convertUnixTimestampToDate, createDate } from "../helpers/date-helper";
-import { chartConfig } from "../constants/config";
 import StockContext from '/context/StockContext';
 import { fetchTwelveData } from "../app/api/stock/stock-api";
 
 const Chart = () => {
-  const [filter, setFilter] = useState("1D");
+  const [selectedInterval, setSelectedInterval] = useState("1D");
   const [data, setData] = useState([]);
   const { stockSymbol } = useContext(StockContext);
 
-  useEffect(() => {
-    const getDateRange = () => {
-      const { days, weeks, months, years } = chartConfig[filter];
-      const endDate = new Date();
-      const startDate = createDate(endDate, -days, -weeks, -months, -years);
+  const intervals = ["1D", "1W", "1M", "1Y"];
 
-      return {
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-      };
-    };
-
-    const formatData = (response) => {
-      const values = response.values || [];
-      return values.map((item) => ({
-        value: parseFloat(item.close),
-        date: new Date(item.datetime),
-      }));
-    };
-    
-
-    const updateChartData = async () => {
-      try {
-        const { startDate, endDate } = getDateRange();
-        const result = await fetchTwelveData(stockSymbol, startDate, endDate);
-        console.log("API Response:", result);
-        const formattedData = formatData(result);
-        const reversedData = formattedData.reverse();
-    
-        setData(reversedData);
-      } catch (error) {
-        setData([]);
-        console.error(error);
-      }
-    };
-    
-    updateChartData();
-  }, [stockSymbol, filter]);
-
-  const customTooltipContent = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      const dataPoint = payload[0].payload;
-      const formattedDate = new Intl.DateTimeFormat('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-      }).format(dataPoint.date);
-
-      return (
-        <div className="custom-tooltip">
-          <p>{formattedDate} GMT+00</p>
-          <p>{`$${dataPoint.value.toFixed(2)}`}</p>
-        </div>
-      );
-    }
-
-    return null;
+  const handleIntervalChange = (newInterval) => {
+    setSelectedInterval(newInterval);
   };
+
+  const updateChartData = async () => {
+    try {
+      const result = await fetchTwelveData(stockSymbol, selectedInterval);
+      
+      // Check if the response has the expected structure
+      if (result && result.values && Array.isArray(result.values)) {
+        const formattedData = result.values.map((item) => ({
+          value: parseFloat(item.close),
+          date: new Date(item.datetime),
+        }));
+        const reversedData = formattedData.reverse();
+  
+        setData(reversedData);
+      } else {
+        console.error("Invalid data structure in API response:", result);
+        setData([]);
+      }
+    } catch (error) {
+      setData([]);
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    updateChartData();
+  }, [stockSymbol, selectedInterval]);
+
   return (
     <Card>
-      {/* <ul className="flex absolute top-2 right-2 z-40">
-        {Object.keys(chartConfig).map((item) => (
-          <li key={item}>
-            <ChartFilter
-              text={item}
-              active={filter === item}
-              onClick={() => {
-                setFilter(item);
-              }}
-            />
-          </li>
+      <div className="interval-selector">
+        {intervals.map((interval) => (
+          <button
+            key={interval}
+            className={selectedInterval === interval ? "active" : ""}
+            onClick={() => handleIntervalChange(interval)}
+          >
+            {interval}
+          </button>
         ))}
-      </ul> */}
+      </div>
       <ResponsiveContainer>
         <AreaChart data={data}>
-          <defs>
-            <linearGradient id="chartColor" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#38bfc3" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#38bfc3" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <Tooltip content={customTooltipContent} />
+          <Tooltip />
           <Area
             type="monotone"
             dataKey="value"
             stroke="#38bfc3"
-            fill="url(#chartColor)"
             fillOpacity={1}
+            fill="url(#chartColor)"
             strokeWidth={0.5}
           />
           <XAxis
             dataKey="date"
-            domain={['auto', 'auto']}  
+            domain={['auto', 'auto']}
             tickFormatter={(timestamp) => {
               const date = new Date(timestamp);
-              const formattedTime = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-              return date.getHours() % 2 === 0 ? formattedTime : '';
+
+              switch (selectedInterval) {
+                case "1D":
+                  return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+                case "1W":
+                  return date.toLocaleDateString(undefined, { weekday: 'short' });
+                case "1M":
+                  return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+                case "1Y":
+                  return date.toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+                default:
+                  return '';
+              }
             }}
           />
           <YAxis
@@ -130,4 +104,4 @@ const Chart = () => {
   );
 }
 
-export default Chart
+export default Chart;

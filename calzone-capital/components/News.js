@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getMarketNews } from "../app/api/stock/stock-api";
+import { FaNewspaper } from 'react-icons/fa';
 
 
 const News = () => {
@@ -25,9 +26,9 @@ const News = () => {
             {news.map((article) => (
             <div key={article.id} className="flex mb-3">
                 <img
-                src={article.image}
-                alt={article.headline}
-                className="w-16 h-16 object-cover rounded-md mr-4"
+                    src={article.image || '/images/news.png'}
+                    alt={article.image ? article.headline : "News Icon"}
+                    className="w-16 h-16 object-cover rounded-md mr-4"
                 />
                 <div>
                 <h3 className="text-xs mb-1">{article.headline}</h3>

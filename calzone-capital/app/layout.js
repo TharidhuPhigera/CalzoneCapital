@@ -1,7 +1,7 @@
 import './globals.css'
 import { Poppins } from 'next/font/google'
 import { getServerSession } from 'next-auth'
-import SessionProvider from "app/utils/SessionProvider"
+import SessionProvider from "./utils/SessionProvider"
 
 const poppins = Poppins({
   subsets: ['latin'],

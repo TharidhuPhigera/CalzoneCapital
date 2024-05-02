@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link';
-import { FaTachometerAlt, FaBriefcase, FaSearch, FaCogs, FaSignOutAlt, FaUser, FaWallet } from 'react-icons/fa';
+import { FaTachometerAlt, FaSearch, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { signOut, useSession } from "next-auth/react"
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -46,14 +46,11 @@ export default function Sidebar({}) {
   const pages = [
     { id: 1, icon: <FaTachometerAlt />, text: "Dashboard", href: "/home"},
     { id: 2, icon: <FaSearch />, text: "Discover", href: "/market"},
-    { id: 3, icon: <FaBriefcase />, text: "Portofolio", href: "/portofolio"},
-    { id: 4, icon: <FaWallet />, text: "Wallet", href: "/wallet"},
-    { id: 5, icon: <FaUser />, text: "Profile", href: "/profile"}
+    { id: 3, icon: <FaUser />, text: "Profile", href: "/profile"}
   ];
 
   const bottomPages= [
-    { id: 5, icon: <FaCogs />, text: "Settings", href: "/settings"},
-    { id: 6, icon: <FaSignOutAlt />, text: "Logout", onClick: handleSignOut },
+    { id: 5, icon: <FaSignOutAlt />, text: "Logout", onClick: handleSignOut },
   ]
 
   return (

@@ -38,27 +38,9 @@ export const fetchQuote = async (stockSymbol) => {
   return await response.json();
 };
 
-export const fetchTwelveData = async (stockSymbol, interval = "1min", outputSize = 5000) => {
-  let intervalInMinutes;
 
-  switch (interval) {
-    case "1day":
-      intervalInMinutes = "1min";
-      break;
-    case "1week":
-      intervalInMinutes = "5min";
-      break;
-    case "1month":
-      intervalInMinutes = "1h";
-      break;
-    case "1year":
-      intervalInMinutes = "1day";
-      break;
-    default:
-      intervalInMinutes = "1min";
-  }
-
-  const url = `${twelveDataBasePath}/time_series?symbol=${stockSymbol}&interval=${intervalInMinutes}&apikey=7b5861f61d974edeb58bd9da0cc76789&outputsize=${outputSize}`;
+export const fetchTwelveData = async (stockSymbol, interval = "1day", outputSize = 5000) => {
+  const url = `${twelveDataBasePath}/time_series?symbol=${stockSymbol}&interval=${interval}&apikey=7b5861f61d974edeb58bd9da0cc76789&outputsize=${outputSize}`;
 
   const response = await fetch(url);
 

@@ -58,9 +58,7 @@ export function Login() {
                         className='w-full px-6 py-3 rounded-full bg-[#38bfc3] text-white hover:bg-[#2D9B9E]'>
                         Sign In
                     </button>
-                    {error && (
-                    <p className='text-red-600 text-[16px] m-4'>{error}</p>
-                    )}
+                    {error && <p className="text-red-600 text-[16px] mt-2">{error}</p>}
           </form>
           <div className="text-center text-gray-500 mt-4">- OR -</div>
           <Link className="block text-center text-[#2D9B9E] hover:underline mt-2" href="/register">

@@ -41,7 +41,7 @@ const Search = () => {
   }, [input]);
 
   return (
-    <div className={`relative z-50 w-96`}>
+    <div className={`relative z-40 w-96`}>
       <div className={`flex items-center bg-[#F5F7F8] my-4 shadow-md rounded-md`}>
         <input
           type="text"

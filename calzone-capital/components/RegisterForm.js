@@ -1,5 +1,5 @@
 "use client"
-import Navbar from '/components/Navbar'
+import Navbar from './Navbar'
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
@@ -21,6 +21,26 @@ export default function RegisterForm() {
 
     if (!email || !password || !firstName || !lastName || !dob || !phoneNumber) {
       setError("All fields are necessary.");
+      return;
+    }
+
+    // Password length validation
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+
+    // Age validation (assuming dob is in YYYY-MM-DD format)
+    const age = new Date().getFullYear() - new Date(dob).getFullYear();
+    if (age < 18) {
+      setError("You must be at least 18 years old to register.");
+      return;
+    }
+
+    // Phone number validation (basic example for US numbers)
+    const phoneRegex = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
+    if (!phoneRegex.test(phoneNumber.replace(/[^0-9]/g, ''))) {
+      setError("Invalid phone number format.");
       return;
     }
 
@@ -71,7 +91,7 @@ export default function RegisterForm() {
     <main className="flex min-h-screen flex-col bg-[#121212]">
       <Navbar style={{ height: 'auto', marginBottom: '20px' }} />
       <div className='flex flex-col items-center'>
-        <div className='bg-white p-8 rounded shadow-md w-128 mt-8'>
+        <div className='bg-white p-8 rounded shadow-md w-128'>
           <h1 className='text-black text-4xl text-center font-thin mb-8'>Register</h1>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input 

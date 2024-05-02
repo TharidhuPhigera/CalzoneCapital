@@ -5,7 +5,6 @@ const TwelveDataWebSocket = ({ symbols, onMessage }) => {
     const socket = new WebSocket(`wss://ws.twelvedata.com/v1/quotes/price?apikey=7b5861f61d974edeb58bd9da0cc76789`);
 
     socket.addEventListener('open', (event) => {
-      // console.log('WebSocket Connection Opened:', event);
       socket.send(JSON.stringify({
         action: 'subscribe',
         params: { symbols: symbols.join(',') }
@@ -14,7 +13,6 @@ const TwelveDataWebSocket = ({ symbols, onMessage }) => {
 
     socket.addEventListener('message', (event) => {
       const data = JSON.parse(event.data);
-      // console.log('WebSocket Message Received:', data);
       onMessage(data);
     });
 

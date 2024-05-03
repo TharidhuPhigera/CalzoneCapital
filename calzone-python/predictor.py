@@ -352,12 +352,11 @@ def evaluate_model():
         return jsonify({"error": "Stock symbol must be provided"}), 400
         
     
+    future_days = 0
     # Fetch and prepare data
-    scaled_data, scaler, dates = fetch_and_prepare_data(symbol)
+    scaled_data, scaler, dates, _ = fetch_and_prepare_data(symbol)
     # Train the model and get predictions
-    predictions, actuals, _, _, _ = train_and_predict(scaled_data, scaler, dates)
-
-    # Adjust the length of predictions to match actuals
+    predictions, actuals, test_dates, latest_historical_price, latest_predicted_price = train_and_predict(scaled_data, scaler, dates, future_days)
     # Ensure predictions and actuals are of equal length
     predictions_adjusted = predictions[:len(actuals)]
 

@@ -9,21 +9,21 @@ Calzone Capital is a sophisticated financial investment assistant platform, leve
 
 To run this project, you will need Node.js and Python installed on your machine. The project is split into two main parts:
 
-*     Frontend: Located in the **/calzone-capital** directory, built with NextJS.
-*     Backend: Located in the **/calzone-python** directory, powered by Python Flask. For Apple Silicon Mac users, using a Conda environment is recommended to ensure compatibility.
+* Frontend: Located in the **/calzone-capital** directory, built with NextJS.
+* Backend: Located in the **/calzone-python** directory, powered by Python Flask. For Apple Silicon Mac users, using a Conda environment is recommended to ensure compatibility.
 
 ### Key Dependencies
 
-*     NextJS Libraries:
-	*         **@next/font**, **@heroicons/react**, and styled-components for UI styling and iconography.
-	*         **axios** for making HTTP requests.
-	*         **next-auth** for handling authentication.
-	*         **socket.io-client** for real-time web socket communications.
-*     Python Libraries:
-	*         **Flask** and **flask_cors** for server setup and handling CORS.
-	*         **keras** with **LSTM** for building neural network models essential for stock price prediction.
-	*         **sklearn** for data preprocessing and evaluation metrics.
-	*         **pandas** and **numpy** for data manipulation and numerical operations.
+* NextJS Libraries:
+	*  **@next/font**, **@heroicons/react**, and styled-components for UI styling and iconography.
+	*  **axios** for making HTTP requests.
+	*  **next-auth** for handling authentication.
+	*  **socket.io-client** for real-time web socket communications.
+* Python Libraries:
+	*  **Flask** and **flask_cors** for server setup and handling CORS.
+	*  **keras** with **LSTM** for building neural network models essential for stock price prediction.
+	*  **sklearn** for data preprocessing and evaluation metrics.
+	*  **pandas** and **numpy** for data manipulation and numerical operations.
 
 ### Database
 
@@ -39,10 +39,10 @@ Here is the connection string template you should use:
 
 Replace the placeholders with the following details to connect:
 
-*    **username**: supervisor
-*     **password**: 9KA6zgDE4WQaxHIG
-*     **cluster-address**: cluster0.s8fqejr.mongodb.net
-*     **dbname**: CalzoneCapital
+* **username**: supervisor
+* **password**: 9KA6zgDE4WQaxHIG
+* **cluster-address**: cluster0.s8fqejr.mongodb.net
+* **dbname**: CalzoneCapital
 
 **Important Note**: The credentials provided above are included in the project's source code for ease of setup and are intended for use in a controlled development environment. 
 
@@ -67,7 +67,6 @@ Begin by cloning the repository to your local machine using Git:
 ##### 2. Install Frontend Dependencies
 Navigate to the **/calzone-capital** directory and install the required Node.js dependencies:
 
-
 	cd calzone-capital
 	npm install
 
@@ -80,15 +79,12 @@ Depending on your system, set up the Python environment:
 	conda activate calzone
 	conda install -c apple tensorflow-macos
 
-
 ###### Other Systems:
 
     python -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
-
 Ensure you navigate to the /calzone-python directory before installing Python dependencies:
-
 
     cd calzone-python
 
@@ -109,7 +105,6 @@ In the **/calzone-python** directory, you need to run both backend scripts to fu
 	python user.py
 
 ###### Run Prediction Model Script:
-
 
     python predictor.py
 
